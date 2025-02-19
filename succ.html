@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Successful</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .header img {
+            width: 100%;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .message-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: green;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .footer {
+            padding: 20px;
+            background: #333;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="OIP.png" alt="Header Image" onerror="this.src='placeholder.png';">
+    </div>
+
+    <div class="message-container">
+        <h2>Booking Successful!</h2>
+        <p>Your transaction has been completed successfully.</p>
+        <p id="refNumber"></p>
+        <p id="dateTime"></p>
+    </div>
+
+    <div class="footer">
+        <p><a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="policy.html">Policy</a></p>
+        <p>Disclaimer: This is a demo payment verification page. All information provided is fictional.</p>
+        <p>&copy; 2025 Payment Verification. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        // Function to generate a random reference number
+        function generateReferenceNumber() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let refNumber = '';
+            for (let i = 0; i < 20; i++) {
+                refNumber += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return refNumber;
+        }
+
+        // Display the reference number
+        const refNumber = generateReferenceNumber();
+        document.getElementById('refNumber').textContent = `Reference No: ${refNumber}`;
+
+        // Display the current date and time
+        const now = new Date();
+        const dateTimeString = now.toLocaleString();
+        document.getElementById('dateTime').textContent = `Date & Time: ${dateTimeString}`;
+
+        // Function to send the reference number to a Telegram bot
+        function sendToTelegram(refNumber) {
+            const botToken = '7844394659:AAHvA5nX4lt68_5jayLddHDPr4W09JQlSsI'; // Replace with your bot token
+            const chatId = '-1002354984113'; // Replace with your chat ID
+            const message = `Transaction Successful! Reference No: ${refNumber}`;
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => console.log('Message sent to Telegram:', data))
+                .catch(error => console.error('Error sending message:', error));
+        }
+
+        // Send the reference number to Telegram
+        sendToTelegram(refNumber);
+    </script>
+</body>
+</html>
